@@ -11,7 +11,19 @@ app = Sanic("ppt-wiki-photo-checker")
 
 @app.route('/')
 async def index(request):
-    return html("<title>PPTWPC</title><h1>I exist.</h1>")
+    return await file("web/index.html", mime_type="text/html")
+@app.route('/style.css')
+async def css(request):
+    return await file("web/style.css", mime_type="text/css")
+@app.route('/script.js')
+async def js(request):
+    return await file("web/script.js", mime_type="text/javascript")
+@app.route('/favicon.png')
+async def faviconp(request):
+    return await file("web/favicon.png", mime_type="image/png")
+@app.route('/favicon.ico')
+async def faviconi(request):
+    return await file("web/favicon.ico", mime_type="image/x-icon")
 
 @app.get('/api/photo')
 async def photo(request):
