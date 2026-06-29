@@ -1,6 +1,7 @@
 import requests
 import json
 from sanic import Sanic, html, file, json as sjson
+from sanic_ext import Extend
 
 headers = {
     'User-Agent': "Python 3.13.3"
@@ -8,6 +9,8 @@ headers = {
 baseurl = 'https://wiki.payphonetag.com/wiki/'
 
 app = Sanic("ppt-wiki-photo-checker")
+app.config.CORS_ORIGINS = "*"
+Extend(app)
 
 @app.route('/')
 async def index(request):

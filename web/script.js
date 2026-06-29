@@ -1,12 +1,12 @@
 async function fetchPhoto(cabinet_id) {
-    const response =  await fetch(`http://127.0.0.1:8000/api/photo?cabinet=${encodeURIComponent(cabinet_id)}`);
+    const response =  await fetch(`/api/photo?cabinet=${encodeURIComponent(cabinet_id)}`);
     const json = response.json();
     console.log(json);
     return json;
 }
 
 async function loadPhoto() {
-    const cabinet = document.getElementById('cabinet');
+    const cabinet = document.getElementById('cabinet').value;
     const result = await fetchPhoto(cabinet);
 
     if (result.error) {
@@ -15,6 +15,12 @@ async function loadPhoto() {
         return;
     }
 
-    document.getElementById("cabinet-image").innerHTML = `<img src="${result.file}" alt="Photo of cabinet ${cabinet}">`;
-    console.log("Photo")
+    if (result.file) {
+        document.getElementById("cabinet-image").innerHTML = `<img src="${result.file}" alt="Photo of cabinet ${cabinet}">`;
+        console.log("Photo")
+    }
+
+    else {
+        document.getElementById("cabinet-image").innerHTML = "Uh oh fucky wucky"
+    }
 }
